@@ -30,35 +30,36 @@ public class MySQLAccess {
       statement = connect.createStatement();
       // Result set get the result of the SQL query
       resultSet = statement
-          .executeQuery("select * from feedback.comments");
+          .executeQuery("select * from feedback.transactions");
       writeResultSet(resultSet);
 
       // PreparedStatements can use variables and are more efficient
       preparedStatement = connect
-          .prepareStatement("insert into  feedback.comments values (default, ?, ?, ?, ? , ?, ?)");
+          .prepareStatement("insert into  feedback.transactions values (default, ?, ?, ?, ? , ?, ?, ?)");
       // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
       // Parameters start with 1
       preparedStatement.setString(1, "Test");
-      preparedStatement.setString(2, "TestEmail");
-      preparedStatement.setString(3, "TestWebpage");
-      preparedStatement.setDate(4, new java.sql.Date(2009, 12, 11));
-      preparedStatement.setString(5, "TestSummary");
-      preparedStatement.setString(6, "TestComment");
+      preparedStatement.setFloat(2, (float) 3.14);
+      preparedStatement.setFloat(3, (float) 3.4);
+      preparedStatement.setFloat(4, (float) 7.4);
+      preparedStatement.setFloat(5, (float) 3.5);
+      preparedStatement.setFloat(6, (float) 4.5);
+      preparedStatement.setFloat(7, (float) 6.9);
       preparedStatement.executeUpdate();
 
       preparedStatement = connect
-          .prepareStatement("SELECT myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+          .prepareStatement("SELECT * from feedback.transactions");
       resultSet = preparedStatement.executeQuery();
       writeResultSet(resultSet);
 
       // Remove again the insert comment
       preparedStatement = connect
-      .prepareStatement("delete from feedback.comments where myuser= ? ; ");
+      .prepareStatement("delete from feedback.transactions where myuser= ? ; ");
       preparedStatement.setString(1, "Test");
       preparedStatement.executeUpdate();
       
       resultSet = statement
-      .executeQuery("select * from feedback.comments");
+      .executeQuery("select * from feedback.transactions");
       writeMetaData(resultSet);
       
     } catch (Exception e) {
@@ -89,15 +90,19 @@ public class MySQLAccess {
       // which starts at 1
       // e.g. resultSet.getSTring(2);
       String user = resultSet.getString("myuser");
-      String website = resultSet.getString("webpage");
-      String summary = resultSet.getString("summary");
-      Date date = resultSet.getDate("datum");
-      String comment = resultSet.getString("comments");
+      float balance = resultSet.getFloat("balance");
+      float entertainment = resultSet.getFloat("entertainment");
+      float food = resultSet.getFloat("food");
+      float transport = resultSet.getFloat("transport");
+      float room = resultSet.getFloat("room");
+      float emergency = resultSet.getFloat("emergency");
       System.out.println("User: " + user);
-      System.out.println("Website: " + website);
-      System.out.println("summary: " + summary);
-      System.out.println("Date: " + date);
-      System.out.println("Comment: " + comment);
+      System.out.println("balance: " + balance);
+      System.out.println("entertainment: " + entertainment);
+      System.out.println("food: " + food);
+      System.out.println("transport: " + transport);
+      System.out.println("room: " + room);
+      System.out.println("emergency: " + emergency);
     }
   }
 
