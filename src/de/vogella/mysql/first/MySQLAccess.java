@@ -32,31 +32,6 @@ public class MySQLAccess {
       resultSet = statement
           .executeQuery("select * from feedback.transactions");
       writeResultSet(resultSet);
-
-      // PreparedStatements can use variables and are more efficient
-      preparedStatement = connect
-          .prepareStatement("insert into  feedback.transactions values (default, ?, ?, ?, ? , ?, ?, ?)");
-      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
-      // Parameters start with 1
-      preparedStatement.setString(1, "Test");
-      preparedStatement.setFloat(2, (float) 3.14);
-      preparedStatement.setFloat(3, (float) 3.4);
-      preparedStatement.setFloat(4, (float) 7.4);
-      preparedStatement.setFloat(5, (float) 3.5);
-      preparedStatement.setFloat(6, (float) 4.5);
-      preparedStatement.setFloat(7, (float) 6.9);
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connect
-          .prepareStatement("SELECT * from feedback.transactions");
-      resultSet = preparedStatement.executeQuery();
-      writeResultSet(resultSet);
-
-      // Remove again the insert comment
-      preparedStatement = connect
-      .prepareStatement("delete from feedback.transactions where myuser= ? ; ");
-      preparedStatement.setString(1, "Test");
-      preparedStatement.executeUpdate();
       
       resultSet = statement
       .executeQuery("select * from feedback.transactions");
@@ -69,7 +44,261 @@ public class MySQLAccess {
     }
 
   }
+  
+  public void readUserTranactions(int userid) throws Exception {
+    try {
+      // This will load the MySQL driver, each DB has its own driver
+      Class.forName("com.mysql.jdbc.Driver");
+      // Setup the connection with the DB
+      connect = DriverManager
+          .getConnection("jdbc:mysql://localhost/feedback?"
+              + "user=sqluser&password=sqluserpw");
 
+      // Statements allow to issue SQL queries to the database
+      statement = connect.createStatement();
+      // Result set get the result of the SQL query
+      preparedStatement = connect
+          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+      preparedStatement.setInt(1, userid);
+      resultSet = preparedStatement.executeQuery();
+      writeResultSet(resultSet);
+      
+    } catch (Exception e) {
+      throw e;
+    } finally {
+      close();
+    }
+
+  }
+  
+  public void reduceBalance(double cost, int userid) throws Exception {
+    try {
+      // This will load the MySQL driver, each DB has its own driver
+      Class.forName("com.mysql.jdbc.Driver");
+      // Setup the connection with the DB
+      connect = DriverManager
+          .getConnection("jdbc:mysql://localhost/feedback?"
+              + "user=sqluser&password=sqluserpw");
+
+      // Statements allow to issue SQL queries to the database
+      statement = connect.createStatement();
+
+      // PreparedStatements can use variables and are more efficient
+      preparedStatement = connect
+          .prepareStatement("UPDATE transactions SET balance = balance - ? WHERE id = ?");
+      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // Parameters start with 1
+      preparedStatement.setDouble(1, cost);
+      preparedStatement.setInt(2, userid);
+      preparedStatement.executeUpdate();
+
+      preparedStatement = connect
+          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+      preparedStatement.setInt(1, userid);
+      resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()) {
+        double balance = resultSet.getDouble("balance");
+        System.out.println("New balance: " + balance);  
+      }
+      
+    } catch (Exception e) {
+      throw e;
+    } finally {
+      close();
+    }
+
+  }
+
+  public void incEntertainment(double cost, int userid) throws Exception {
+    try {
+      // This will load the MySQL driver, each DB has its own driver
+      Class.forName("com.mysql.jdbc.Driver");
+      // Setup the connection with the DB
+      connect = DriverManager
+          .getConnection("jdbc:mysql://localhost/feedback?"
+              + "user=sqluser&password=sqluserpw");
+
+      // Statements allow to issue SQL queries to the database
+      statement = connect.createStatement();
+
+      // PreparedStatements can use variables and are more efficient
+      preparedStatement = connect
+          .prepareStatement("UPDATE transactions SET entertainment = entertainment + ? WHERE id = ?");
+      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // Parameters start with 1
+      preparedStatement.setDouble(1, cost);
+      preparedStatement.setInt(2, userid);
+      preparedStatement.executeUpdate();
+
+      preparedStatement = connect
+          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+      preparedStatement.setInt(1, userid);
+      resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()) {
+        double expense = resultSet.getDouble("entertainment");
+        System.out.println("New entertainment expenses: " + expense);  
+      }
+      
+    } catch (Exception e) {
+      throw e;
+    } finally {
+      close();
+    }
+
+  }
+  
+  public void incFood(double cost, int userid) throws Exception {
+    try {
+      // This will load the MySQL driver, each DB has its own driver
+      Class.forName("com.mysql.jdbc.Driver");
+      // Setup the connection with the DB
+      connect = DriverManager
+          .getConnection("jdbc:mysql://localhost/feedback?"
+              + "user=sqluser&password=sqluserpw");
+
+      // Statements allow to issue SQL queries to the database
+      statement = connect.createStatement();
+
+      // PreparedStatements can use variables and are more efficient
+      preparedStatement = connect
+          .prepareStatement("UPDATE transactions SET food = food + ? WHERE id = ?");
+      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // Parameters start with 1
+      preparedStatement.setDouble(1, cost);
+      preparedStatement.setInt(2, userid);
+      preparedStatement.executeUpdate();
+
+      preparedStatement = connect
+          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+      preparedStatement.setInt(1, userid);
+      resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()) {
+        double expense = resultSet.getDouble("food");
+        System.out.println("New food expenses: " + expense);  
+      }
+      
+    } catch (Exception e) {
+      throw e;
+    } finally {
+      close();
+    }
+
+  }
+  
+  public void incTransport(double cost, int userid) throws Exception {
+    try {
+      // This will load the MySQL driver, each DB has its own driver
+      Class.forName("com.mysql.jdbc.Driver");
+      // Setup the connection with the DB
+      connect = DriverManager
+          .getConnection("jdbc:mysql://localhost/feedback?"
+              + "user=sqluser&password=sqluserpw");
+
+      // Statements allow to issue SQL queries to the database
+      statement = connect.createStatement();
+
+      // PreparedStatements can use variables and are more efficient
+      preparedStatement = connect
+          .prepareStatement("UPDATE transactions SET transport = transport + ? WHERE id = ?");
+      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // Parameters start with 1
+      preparedStatement.setDouble(1, cost);
+      preparedStatement.setInt(2, userid);
+      preparedStatement.executeUpdate();
+
+      preparedStatement = connect
+          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+      preparedStatement.setInt(1, userid);
+      resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()) {
+        double expense = resultSet.getDouble("transport");
+        System.out.println("New transport expenses: " + expense);  
+      }
+      
+    } catch (Exception e) {
+      throw e;
+    } finally {
+      close();
+    }
+
+  }
+  
+  public void incRoom(double cost, int userid) throws Exception {
+    try {
+      // This will load the MySQL driver, each DB has its own driver
+      Class.forName("com.mysql.jdbc.Driver");
+      // Setup the connection with the DB
+      connect = DriverManager
+          .getConnection("jdbc:mysql://localhost/feedback?"
+              + "user=sqluser&password=sqluserpw");
+
+      // Statements allow to issue SQL queries to the database
+      statement = connect.createStatement();
+
+      // PreparedStatements can use variables and are more efficient
+      preparedStatement = connect
+          .prepareStatement("UPDATE transactions SET room = room + ? WHERE id = ?");
+      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // Parameters start with 1
+      preparedStatement.setDouble(1, cost);
+      preparedStatement.setInt(2, userid);
+      preparedStatement.executeUpdate();
+
+      preparedStatement = connect
+          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+      preparedStatement.setInt(1, userid);
+      resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()) {
+        double expense = resultSet.getDouble("room");
+        System.out.println("New room expenses: " + expense);  
+      }
+      
+    } catch (Exception e) {
+      throw e;
+    } finally {
+      close();
+    }
+
+  }
+  
+  public void incEmergency(double cost, int userid) throws Exception {
+    try {
+      // This will load the MySQL driver, each DB has its own driver
+      Class.forName("com.mysql.jdbc.Driver");
+      // Setup the connection with the DB
+      connect = DriverManager
+          .getConnection("jdbc:mysql://localhost/feedback?"
+              + "user=sqluser&password=sqluserpw");
+
+      // Statements allow to issue SQL queries to the database
+      statement = connect.createStatement();
+
+      // PreparedStatements can use variables and are more efficient
+      preparedStatement = connect
+          .prepareStatement("UPDATE transactions SET emergency = emergency + ? WHERE id = ?");
+      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // Parameters start with 1
+      preparedStatement.setDouble(1, cost);
+      preparedStatement.setInt(2, userid);
+      preparedStatement.executeUpdate();
+
+      preparedStatement = connect
+          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+      preparedStatement.setInt(1, userid);
+      resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()) {
+        double expense = resultSet.getDouble("emergency");
+        System.out.println("New emergency expenses: " + expense);  
+      }
+      
+    } catch (Exception e) {
+      throw e;
+    } finally {
+      close();
+    }
+
+  }
+  
   private void writeMetaData(ResultSet resultSet) throws SQLException {
     //   Now get some metadata from the database
     // Result set get the result of the SQL query
@@ -90,19 +319,19 @@ public class MySQLAccess {
       // which starts at 1
       // e.g. resultSet.getSTring(2);
       String user = resultSet.getString("myuser");
-      float balance = resultSet.getFloat("balance");
-      float entertainment = resultSet.getFloat("entertainment");
-      float food = resultSet.getFloat("food");
-      float transport = resultSet.getFloat("transport");
-      float room = resultSet.getFloat("room");
-      float emergency = resultSet.getFloat("emergency");
+      double balance = resultSet.getDouble("balance");
+      double entertainment = resultSet.getDouble("entertainment");
+      double food = resultSet.getDouble("food");
+      double transport = resultSet.getDouble("transport");
+      double room = resultSet.getDouble("room");
+      double emergency = resultSet.getDouble("emergency");
       System.out.println("User: " + user);
       System.out.println("balance: " + balance);
-      System.out.println("entertainment: " + entertainment);
-      System.out.println("food: " + food);
-      System.out.println("transport: " + transport);
-      System.out.println("room: " + room);
-      System.out.println("emergency: " + emergency);
+      System.out.println("entertainment expenses: " + entertainment);
+      System.out.println("food expenses: " + food);
+      System.out.println("transport expenses: " + transport);
+      System.out.println("room expenses: " + room);
+      System.out.println("emergency expenses: " + emergency);
     }
   }
 
@@ -126,3 +355,4 @@ public class MySQLAccess {
   }
 
 } 
+
