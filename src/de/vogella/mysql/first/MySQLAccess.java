@@ -6,7 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
+import java.lang.Class;
+//import java.util.Date;
 
 //This class holds the JDBC Driver which connects the Java Program to the MySQL
 //server. The code being used is built up from the tutorial code used by Vogella
@@ -16,15 +17,52 @@ public class MySQLAccess {
   private Statement statement = null;
   private PreparedStatement preparedStatement = null;
   private ResultSet resultSet = null;
+  
+  
+  private final String feedbackDB = "jdbc:mysql://localhost/feedback?user=sqluser&password=sqluserpw";
+  private final String nomismaDB = "jdbc:mysql://localhost/nomisma?user=sqluser&password=sqluserpw";
 
+  /**
+   * authUser
+   * 
+   * Fetches a user from an "account" table on database "nomisma"
+   * (Username can possibly be a primary key)
+   * 
+   * @param username a given username
+   * @param password a given password
+   * @throws Exception
+   * @return a String array containing a uid and username if there's a match. If nothing is returned, no such matching account exists.
+   */
+  public String[] authUser(String username, String password) throws Exception {
+      
+      try {
+          Class.forName("com.mysql.jdbc.Driver");
+          connect = DriverManager
+          .getConnection(nomismaDB);
+          
+          preparedStatement = connect.prepareStatement("SELECT uid, username FROM nomisma.account WHERE username = ? AND password = ?");
+          preparedStatement.setString(0, username);
+          preparedStatement.setString(1, password);
+          resultSet = preparedStatement.executeQuery();
+          //writeResultSet(resultSet);
+          String[] buffer = {resultSet.getString(1), resultSet.getString(2)};
+          
+          return buffer;
+      } catch (Exception e) {
+          System.out.println("ERROR: Login failed.");
+          throw e;
+      } finally {
+          close();
+      }
+  }
+  
   public void readDataBase() throws Exception {
     try {
-      // This will load the MySQL driver, each DB has its own driver
-      Class.forName("com.mysql.jdbc.Driver");
+        // This will load the MySQL driver, each DB has its own driver
+        Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection("jdbc:mysql://localhost/feedback?"
-              + "user=sqluser&password=sqluserpw");
+          .getConnection(feedbackDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -51,8 +89,7 @@ public class MySQLAccess {
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection("jdbc:mysql://localhost/feedback?"
-              + "user=sqluser&password=sqluserpw");
+          .getConnection(feedbackDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -77,8 +114,7 @@ public class MySQLAccess {
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection("jdbc:mysql://localhost/feedback?"
-              + "user=sqluser&password=sqluserpw");
+          .getConnection(feedbackDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -115,8 +151,7 @@ public class MySQLAccess {
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection("jdbc:mysql://localhost/feedback?"
-              + "user=sqluser&password=sqluserpw");
+          .getConnection(feedbackDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -153,8 +188,7 @@ public class MySQLAccess {
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection("jdbc:mysql://localhost/feedback?"
-              + "user=sqluser&password=sqluserpw");
+          .getConnection(feedbackDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -191,8 +225,7 @@ public class MySQLAccess {
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection("jdbc:mysql://localhost/feedback?"
-              + "user=sqluser&password=sqluserpw");
+          .getConnection(feedbackDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -229,8 +262,7 @@ public class MySQLAccess {
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection("jdbc:mysql://localhost/feedback?"
-              + "user=sqluser&password=sqluserpw");
+          .getConnection(feedbackDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -267,8 +299,7 @@ public class MySQLAccess {
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection("jdbc:mysql://localhost/feedback?"
-              + "user=sqluser&password=sqluserpw");
+          .getConnection(feedbackDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();

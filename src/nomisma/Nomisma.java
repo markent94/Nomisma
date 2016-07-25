@@ -16,8 +16,13 @@ public class Nomisma {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception{
+        //call NomismaLogin here
+        
         MySQLAccess dao = new MySQLAccess();
         dao.readDataBase();
+        
+        //call login
+        //if valid
     }
     
 }
