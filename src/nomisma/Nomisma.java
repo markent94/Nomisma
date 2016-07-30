@@ -19,7 +19,7 @@ public class Nomisma {
         //call NomismaLogin here
         
         MySQLAccess dao = new MySQLAccess();
-        dao.readDataBase();
+        dao.readUserTransactions(1);
         
         //call login
         //if valid
