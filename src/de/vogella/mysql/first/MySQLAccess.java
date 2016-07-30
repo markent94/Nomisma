@@ -19,7 +19,6 @@ public class MySQLAccess {
   private ResultSet resultSet = null;
   
   
-  private final String feedbackDB = "jdbc:mysql://localhost/feedback?user=sqluser&password=sqluserpw";
   private final String nomismaDB = "jdbc:mysql://localhost/nomisma?user=sqluser&password=sqluserpw";
 
   /**
@@ -41,8 +40,8 @@ public class MySQLAccess {
           .getConnection(nomismaDB);
           
           preparedStatement = connect.prepareStatement("SELECT uid, username FROM nomisma.account WHERE username = ? AND password = ?");
-          preparedStatement.setString(0, username);
-          preparedStatement.setString(1, password);
+          preparedStatement.setString(1, username);
+          preparedStatement.setString(2, password);
           resultSet = preparedStatement.executeQuery();
           //writeResultSet(resultSet);
           String[] buffer = {resultSet.getString(1), resultSet.getString(2)};
@@ -56,23 +55,30 @@ public class MySQLAccess {
       }
   }
   
+  /**
+   * readDataBase
+   * 
+   * Reads the transactions table for testing purposes
+   * 
+   * @throws Exception
+   */
   public void readDataBase() throws Exception {
     try {
         // This will load the MySQL driver, each DB has its own driver
         Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection(feedbackDB);
+          .getConnection(nomismaDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
       // Result set get the result of the SQL query
       resultSet = statement
-          .executeQuery("select * from feedback.transactions");
+          .executeQuery("select * from nomisma.transactions");
       writeResultSet(resultSet);
       
       resultSet = statement
-      .executeQuery("select * from feedback.transactions");
+      .executeQuery("select * from nomisma.transactions");
       writeMetaData(resultSet);
       
     } catch (Exception e) {
@@ -83,19 +89,27 @@ public class MySQLAccess {
 
   }
   
-  public void readUserTranactions(int userid) throws Exception {
+    /**
+   * readUserTransactions
+   * 
+   * Displays transactions of the user in specific fields
+   * 
+   * @param userid ID of the user to be read
+   * @throws Exception
+   */
+  public void readUserTransactions(int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection(feedbackDB);
+          .getConnection(nomismaDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
       // Result set get the result of the SQL query
       preparedStatement = connect
-          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+          .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
       writeResultSet(resultSet);
@@ -108,13 +122,22 @@ public class MySQLAccess {
 
   }
   
+    /**
+   * reduceBalance
+   * 
+   * Displays current balance, 
+   * 
+   * @param userid ID of the user to be read
+   * @param cost Amount of money to reduce balance by
+   * @throws Exception
+   */
   public void reduceBalance(double cost, int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection(feedbackDB);
+          .getConnection(nomismaDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -122,14 +145,14 @@ public class MySQLAccess {
       // PreparedStatements can use variables and are more efficient
       preparedStatement = connect
           .prepareStatement("UPDATE transactions SET balance = balance - ? WHERE id = ?");
-      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // "myuser, webpage, datum, summary, COMMENTS from nomisma.comments");
       // Parameters start with 1
       preparedStatement.setDouble(1, cost);
       preparedStatement.setInt(2, userid);
       preparedStatement.executeUpdate();
 
       preparedStatement = connect
-          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+          .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
       while (resultSet.next()) {
@@ -145,13 +168,22 @@ public class MySQLAccess {
 
   }
 
+   /**
+   * incEntertainment
+   * 
+   * Displays current entertainment expenses 
+   * 
+   * @param userid ID of the user to be read
+   * @param cost Amount of money to add to entertainment expenses
+   * @throws Exception
+   */
   public void incEntertainment(double cost, int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection(feedbackDB);
+          .getConnection(nomismaDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -159,14 +191,14 @@ public class MySQLAccess {
       // PreparedStatements can use variables and are more efficient
       preparedStatement = connect
           .prepareStatement("UPDATE transactions SET entertainment = entertainment + ? WHERE id = ?");
-      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // "myuser, webpage, datum, summary, COMMENTS from nomisma.comments");
       // Parameters start with 1
       preparedStatement.setDouble(1, cost);
       preparedStatement.setInt(2, userid);
       preparedStatement.executeUpdate();
 
       preparedStatement = connect
-          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+          .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
       while (resultSet.next()) {
@@ -182,13 +214,22 @@ public class MySQLAccess {
 
   }
   
+  /**
+   * incFood
+   * 
+   * Displays current entertainment expenses 
+   * 
+   * @param userid ID of the user to be read
+   * @param cost Amount of money to add to food expenses
+   * @throws Exception
+   */
   public void incFood(double cost, int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection(feedbackDB);
+          .getConnection(nomismaDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -196,14 +237,14 @@ public class MySQLAccess {
       // PreparedStatements can use variables and are more efficient
       preparedStatement = connect
           .prepareStatement("UPDATE transactions SET food = food + ? WHERE id = ?");
-      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // "myuser, webpage, datum, summary, COMMENTS from nomisma.comments");
       // Parameters start with 1
       preparedStatement.setDouble(1, cost);
       preparedStatement.setInt(2, userid);
       preparedStatement.executeUpdate();
 
       preparedStatement = connect
-          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+          .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
       while (resultSet.next()) {
@@ -219,13 +260,22 @@ public class MySQLAccess {
 
   }
   
+  /**
+   * incTransport
+   * 
+   * Displays current transport expenses 
+   * 
+   * @param userid ID of the user to be read
+   * @param cost Amount of money to add to transport expenses
+   * @throws Exception
+   */
   public void incTransport(double cost, int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection(feedbackDB);
+          .getConnection(nomismaDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -233,14 +283,14 @@ public class MySQLAccess {
       // PreparedStatements can use variables and are more efficient
       preparedStatement = connect
           .prepareStatement("UPDATE transactions SET transport = transport + ? WHERE id = ?");
-      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // "myuser, webpage, datum, summary, COMMENTS from nomisma.comments");
       // Parameters start with 1
       preparedStatement.setDouble(1, cost);
       preparedStatement.setInt(2, userid);
       preparedStatement.executeUpdate();
 
       preparedStatement = connect
-          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+          .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
       while (resultSet.next()) {
@@ -256,13 +306,22 @@ public class MySQLAccess {
 
   }
   
+  /**
+   * incRoom
+   * 
+   * Displays current room expenses 
+   * 
+   * @param userid ID of the user to be read
+   * @param cost Amount of money to add to room expenses
+   * @throws Exception
+   */
   public void incRoom(double cost, int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection(feedbackDB);
+          .getConnection(nomismaDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -270,14 +329,14 @@ public class MySQLAccess {
       // PreparedStatements can use variables and are more efficient
       preparedStatement = connect
           .prepareStatement("UPDATE transactions SET room = room + ? WHERE id = ?");
-      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // "myuser, webpage, datum, summary, COMMENTS from nomisma.comments");
       // Parameters start with 1
       preparedStatement.setDouble(1, cost);
       preparedStatement.setInt(2, userid);
       preparedStatement.executeUpdate();
 
       preparedStatement = connect
-          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+          .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
       while (resultSet.next()) {
@@ -293,13 +352,22 @@ public class MySQLAccess {
 
   }
   
+  /**
+   * incEmergency
+   * 
+   * Displays current emergency expenses 
+   * 
+   * @param userid ID of the user to be read
+   * @param cost Amount of money to add to emergency expenses
+   * @throws Exception
+   */
   public void incEmergency(double cost, int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
       // Setup the connection with the DB
       connect = DriverManager
-          .getConnection(feedbackDB);
+          .getConnection(nomismaDB);
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
@@ -307,14 +375,14 @@ public class MySQLAccess {
       // PreparedStatements can use variables and are more efficient
       preparedStatement = connect
           .prepareStatement("UPDATE transactions SET emergency = emergency + ? WHERE id = ?");
-      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // "myuser, webpage, datum, summary, COMMENTS from nomisma.comments");
       // Parameters start with 1
       preparedStatement.setDouble(1, cost);
       preparedStatement.setInt(2, userid);
       preparedStatement.executeUpdate();
 
       preparedStatement = connect
-          .prepareStatement("SELECT * from feedback.transactions WHERE id = ?");
+          .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
       while (resultSet.next()) {
@@ -330,6 +398,14 @@ public class MySQLAccess {
 
   }
   
+  /**
+   * writeMetaData
+   * 
+   * Writes table data - used for readDataBase
+   * 
+   * @param resultset data set to be read
+   * @throws Exception
+   */
   private void writeMetaData(ResultSet resultSet) throws SQLException {
     //   Now get some metadata from the database
     // Result set get the result of the SQL query
@@ -342,6 +418,14 @@ public class MySQLAccess {
     }
   }
 
+  /**
+   * writeResultSet
+   * 
+   * Writes user data - used by readUserTransactions() 
+   * 
+   * @param writeResultSet data set to gather information from
+   * @throws Exception
+   */
   private void writeResultSet(ResultSet resultSet) throws SQLException {
     // ResultSet is initially before the first data set
     while (resultSet.next()) {
