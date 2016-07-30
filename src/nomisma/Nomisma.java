@@ -18,8 +18,13 @@ public class Nomisma {
     public static void main(String[] args) throws Exception{
         //call NomismaLogin here
         
-        MySQLAccess dao = new MySQLAccess();
-        dao.readDataBase();
+        //MySQLAccess dao = new MySQLAccess();
+        //dao.readDataBase();
+        NomismaLogin x = new NomismaLogin();
+        x.setVisible(true);
+        
+        System.out.println("Username: " + x.fetchUsername());
+        System.out.println("Password: " + x.fetchPassword());
         
         //call login
         //if valid

@@ -5,21 +5,37 @@
  */
 package nomisma;
 
-import java.awt.event.WindowEvent;
+import java.awt.Color;
 
 /**
  *
  * @author Chunmeista
  */
-public class NomismaLogin extends javax.swing.JFrame {
+public class NomismaLogin extends javax.swing.JDialog {
 
+    private String username = "";
+    private String password = "";
+    
     /**
      * Creates new form NomismaLogin
      */
-    public NomismaLogin() {
+    public NomismaLogin(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
+    public NomismaLogin() {
+        initComponents();
+    }
+    
+    public String fetchUsername() {
+        return this.username;
+    }
+    
+    public String fetchPassword() {
+        return this.password;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,19 +45,46 @@ public class NomismaLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        login_username = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        login_button = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        login_username = new javax.swing.JTextField();
         login_password = new javax.swing.JPasswordField();
+        login_button = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setModal(true);
 
-        jLabel1.setText("Username");
+        jLabel3.setFont(new java.awt.Font("Cambria", 1, 48)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("nómisma");
+        jLabel3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabel3KeyPressed(evt);
+            }
+        });
 
-        jLabel2.setText("Password");
+        login_username.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        login_username.setForeground(new java.awt.Color(153, 153, 153));
+        login_username.setText("Username");
+        login_username.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                login_usernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                login_usernameFocusLost(evt);
+            }
+        });
+
+        login_password.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        login_password.setForeground(new java.awt.Color(153, 153, 153));
+        login_password.setText("Password");
+        login_password.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                login_passwordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                login_passwordFocusLost(evt);
+            }
+        });
 
         login_button.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
         login_button.setText("LOGIN");
@@ -51,72 +94,88 @@ public class NomismaLogin extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Cambria", 1, 48)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Nomisma");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(login_username)
-                    .addComponent(login_button, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(login_password, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(login_password, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(login_username, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(78, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(106, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(93, 93, 93))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(login_button, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(128, 128, 128))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(login_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(login_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(login_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(login_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(login_button, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
-
-        login_username.getAccessibleContext().setAccessibleName("login_username");
-        login_username.getAccessibleContext().setAccessibleDescription("");
-        login_button.getAccessibleContext().setAccessibleName("login_button");
-        login_password.getAccessibleContext().setAccessibleName("login_password");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void login_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_buttonMouseClicked
+    private void jLabel3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel3KeyPressed
+        //if enter key is pressed, press login key
+        //if (evt.equals()) {
+            //
+            //}
+    }//GEN-LAST:event_jLabel3KeyPressed
+
+    private void login_usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_login_usernameFocusGained
+        if (login_username.getText().equals("Username")) {
+            login_username.setText("");
+            login_username.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_login_usernameFocusGained
+
+    private void login_usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_login_usernameFocusLost
         if (login_username.getText().equals("")) {
-            System.out.println("DEBUG: Blank username!");
-        } else {
-            //System.out.println(login_username.getText());
+            login_username.setText("Username");
+            login_username.setForeground(Color.gray);
         }
+    }//GEN-LAST:event_login_usernameFocusLost
+
+    private void login_passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_login_passwordFocusGained
+        if (login_password.getText().equals("Password")) {
+            login_password.setText("");
+            login_password.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_login_passwordFocusGained
+
+    private void login_passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_login_passwordFocusLost
         if (login_password.getText().equals("")) {
-            System.out.println("DEBUG: Blank password!");
-        } else {
-            //System.out.println(login_password.getText());
+            login_password.setText("Password");
+            login_password.setForeground(Color.gray);
         }
-        
-        //call dao.authUser(login_username.getText(), login_password.getText()) here
-        
-        //closes the window after
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }//GEN-LAST:event_login_passwordFocusLost
+
+    private void login_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_buttonMouseClicked
+        if (login_username.getText().equals("") || login_password.getText().equals("") || login_username.getText().toLowerCase().equals("username") || login_password.getText().toLowerCase().equals("password")) {
+            System.out.println("DEBUG: Invalid username/password!");
+        } else {
+            this.username = login_username.getText();
+            this.password = login_password.getText();
+            //this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+            this.setVisible(false);
+            this.dispose();
+        }
     }//GEN-LAST:event_login_buttonMouseClicked
 
     /**
@@ -146,17 +205,22 @@ public class NomismaLogin extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NomismaLogin().setVisible(true);
+                NomismaLogin dialog = new NomismaLogin(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton login_button;
     private javax.swing.JPasswordField login_password;
