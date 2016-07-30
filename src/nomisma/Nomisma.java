@@ -16,10 +16,12 @@ public class Nomisma {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception{
-        //call NomismaLogin here
-        
+        //call NomismaLogin here - insert username and password into username and password
+        String username = "test"; //placeholder - user input
+        String password = "testpw"; //placeholder - user input
         MySQLAccess dao = new MySQLAccess();
-        dao.readUserTransactions(1);
+        int uid = dao.authUser(username, password);
+        dao.readUserTransactions(uid);
         
         //call login
         //if valid

@@ -32,21 +32,23 @@ public class MySQLAccess {
    * @throws Exception
    * @return a String array containing a uid and username if there's a match. If nothing is returned, no such matching account exists.
    */
-  public String[] authUser(String username, String password) throws Exception {
+  public int authUser(String username, String password) throws Exception {
       
       try {
+          int uid = 0;
           Class.forName("com.mysql.jdbc.Driver");
           connect = DriverManager
           .getConnection(nomismaDB);
           
-          preparedStatement = connect.prepareStatement("SELECT uid, username FROM nomisma.account WHERE username = ? AND password = ?");
+          preparedStatement = connect.prepareStatement("SELECT id, username FROM nomisma.account WHERE username = ? AND password = ?");
           preparedStatement.setString(1, username);
           preparedStatement.setString(2, password);
           resultSet = preparedStatement.executeQuery();
-          //writeResultSet(resultSet);
-          String[] buffer = {resultSet.getString(1), resultSet.getString(2)};
           
-          return buffer;
+          while (resultSet.next()) {
+            uid = resultSet.getInt("id");
+          }
+          return uid;
       } catch (Exception e) {
           System.out.println("ERROR: Login failed.");
           throw e;
