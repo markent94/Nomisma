@@ -16,15 +16,19 @@ public class Nomisma {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception{
-        //call NomismaLogin here
         
-        //MySQLAccess dao = new MySQLAccess();
-        //dao.readDataBase();
-        NomismaLogin x = new NomismaLogin();
-        x.setVisible(true);
+        NomismaLogin loginDialog = new NomismaLogin();
+        loginDialog.setVisible(true);
         
-        System.out.println("Username: " + x.fetchUsername());
-        System.out.println("Password: " + x.fetchPassword());
+        //System.out.println("Username: " + x.fetchUsername());
+        //System.out.println("Password: " + x.fetchPassword());
+
+        //call NomismaLogin here - insert username and password into username and password
+        String username = loginDialog.fetchUsername(); //placeholder - user input
+        String password = loginDialog.fetchPassword(); //placeholder - user input
+        MySQLAccess dao = new MySQLAccess();
+        int uid = dao.authUser(username, password);
+        dao.readUserTransactions(uid);
         
         //call login
         //if valid
