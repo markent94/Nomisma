@@ -6,12 +6,16 @@
 package nomisma;
 
 import de.vogella.mysql.first.MySQLAccess;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author marke_000
  */
 public class Nomisma {
 
+    private static MySQLAccess dao;
+    private static int uid;
     /**
      * @param args the command line arguments
      */
@@ -23,19 +27,87 @@ public class Nomisma {
         //System.out.println("Username: " + x.fetchUsername());
         //System.out.println("Password: " + x.fetchPassword());
 
-        //call NomismaLogin here - insert username and password into username and password
+        //create new account option
         String username = loginDialog.fetchUsername(); //placeholder - test
         String password = loginDialog.fetchPassword(); //placeholder - testpw
-        MySQLAccess dao = new MySQLAccess();    
+        dao = new MySQLAccess();    
         int uid = dao.authUser(username, password);
         if (uid == 0) {
             System.out.println("Username/Password combination is incorrect");
         } else {
+            //user menu
+            //1) checkBalance(); check transaction balance
+            //2) logEntertainment(); log transaction entertainment
+            //3) logFood(); log transaction food
+            //4) logTransport(); log transcation transport
+            //5) logRoom(); log transaction room
+            //6) logEmergency(); log transcation emergency
+            //7) logout/exit
             dao.readUserTransactions(uid);
         }
+    }
         
-        //call login
-        //if valid
+    private void checkBalance() {
+        try {
+            dao.readUserTransactions(uid);
+        } catch (Exception ex) {
+            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void logEntertainment() {
+        try {
+            //cost = user input - cost
+            
+            //dao.reduceBalance(cost,uid);
+            //dao.incEntertainment(cost, uid);
+        } catch (Exception ex) {
+            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void logFood() {
+        try {
+            //cost = user input - cost
+            
+            //dao.reduceBalance(cost,uid);
+            //dao.incFood(cost, uid);
+        } catch (Exception ex) {
+            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void logTransport() {
+        try {
+            //cost = user input - cost
+            
+            //dao.reduceBalance(cost,uid);
+            //dao.incTransport(cost, uid);
+        } catch (Exception ex) {
+            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void logRoom() {
+        try {
+            //cost = user input - cost
+            
+            //dao.reduceBalance(cost,uid);
+            //dao.incRoom(cost, uid);
+        } catch (Exception ex) {
+            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void logEmergency() {
+        try {
+            //cost = user input - cost
+            
+            //dao.reduceBalance(cost,uid);
+            //dao.incEmergency(cost, uid);
+        } catch (Exception ex) {
+            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
