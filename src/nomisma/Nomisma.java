@@ -24,11 +24,15 @@ public class Nomisma {
         //System.out.println("Password: " + x.fetchPassword());
 
         //call NomismaLogin here - insert username and password into username and password
-        String username = loginDialog.fetchUsername(); //placeholder - user input
-        String password = loginDialog.fetchPassword(); //placeholder - user input
-        MySQLAccess dao = new MySQLAccess();
+        String username = loginDialog.fetchUsername(); //placeholder - test
+        String password = loginDialog.fetchPassword(); //placeholder - testpw
+        MySQLAccess dao = new MySQLAccess();    
         int uid = dao.authUser(username, password);
-        dao.readUserTransactions(uid);
+        if (uid == 0) {
+            System.out.println("Username/Password combination is incorrect");
+        } else {
+            dao.readUserTransactions(uid);
+        }
         
         //call login
         //if valid
