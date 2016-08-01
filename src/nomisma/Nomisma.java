@@ -35,6 +35,8 @@ public class Nomisma {
         if (uid == 0) {
             System.out.println("Username/Password combination is incorrect");
         } else {
+            NomismaMenu mainWindow = new NomismaMenu("username");
+            
             //user menu
             //1) checkBalance(); check transaction balance
             //2) logEntertainment(); log transaction entertainment

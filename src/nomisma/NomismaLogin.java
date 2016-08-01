@@ -6,6 +6,7 @@
 package nomisma;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -174,7 +175,9 @@ public class NomismaLogin extends javax.swing.JDialog {
 
     private void login_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_buttonMouseClicked
         if (login_username.getText().equals("") || login_password.getText().equals("") || login_username.getText().toLowerCase().equals("username") || login_password.getText().toLowerCase().equals("password")) {
-            System.out.println("DEBUG: Invalid username/password!");
+            //System.out.println("DEBUG: Invalid username/password!");
+            Object[] option = {"OK"};
+            JOptionPane.showOptionDialog(rootPane, "Invalid Username/Password!", "Error", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE, null, option, option[0]);
         } else {
             this.username = login_username.getText();
             this.password = login_password.getText();
