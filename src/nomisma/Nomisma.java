@@ -31,7 +31,7 @@ public class Nomisma {
         String username = loginDialog.fetchUsername(); //placeholder - test
         String password = loginDialog.fetchPassword(); //placeholder - testpw
         dao = new MySQLAccess();    
-        int uid = dao.authUser(username, password);
+        uid = dao.authUser(username, password);
         if (uid == 0) {
             System.out.println("Username/Password combination is incorrect");
         } else {
