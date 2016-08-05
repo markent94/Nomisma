@@ -6,6 +6,8 @@
 package nomisma;
 
 import java.awt.event.WindowEvent;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
@@ -15,16 +17,23 @@ import javax.swing.ListModel;
  */
 public class NomismaMenu extends javax.swing.JFrame {
 
-    
+    String username = "";
     
     /**
      * Creates new form NomismaWindow
      */
     public NomismaMenu(String login) {
         initComponents();
-        this.Account_Button.setText(login);
+        this.username = login;
+        this.Account_Button.setText(this.username);
         
+        //BigDecimal x = new BigDecimal((double) 1000.2);
+        //this.acct_bal.setText(NumberFormat.getCurrencyInstance().format(x));
     }
+    
+    //public NomismaMenu(String login, ) {
+    //    
+    //}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,50 +44,186 @@ public class NomismaMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        current_balance = new javax.swing.JLabel();
+        entertainment_button = new javax.swing.JButton();
+        balance_input = new javax.swing.JTextField();
+        food_button = new javax.swing.JButton();
+        transport_button = new javax.swing.JButton();
+        room_button = new javax.swing.JButton();
+        emergency_button = new javax.swing.JButton();
+        acct_bal = new javax.swing.JLabel();
         Account_Button = new javax.swing.JButton();
-        add_item = new javax.swing.JButton();
-        remove_item = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        entertainment_label = new javax.swing.JLabel();
+        food_label = new javax.swing.JLabel();
+        transport_label = new javax.swing.JLabel();
+        room_label = new javax.swing.JLabel();
+        emergency_label = new javax.swing.JLabel();
+        emergency_val = new javax.swing.JLabel();
+        room_val = new javax.swing.JLabel();
+        transport_val = new javax.swing.JLabel();
+        food_val = new javax.swing.JLabel();
+        entertainment_val = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setResizable(false);
 
-        current_balance.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        current_balance.setText("$0.00");
+        entertainment_button.setBackground(new java.awt.Color(153, 204, 255));
+        entertainment_button.setText("EN");
+        entertainment_button.setToolTipText("Entertainment");
+        entertainment_button.setBorder(null);
+        entertainment_button.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        entertainment_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                entertainment_buttonMouseClicked(evt);
+            }
+        });
 
-        Account_Button.setBackground(new java.awt.Color(255, 255, 255));
-        Account_Button.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        Account_Button.setText("account_button");
-        Account_Button.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        balance_input.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+        balance_input.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        food_button.setBackground(new java.awt.Color(153, 204, 255));
+        food_button.setText("FO");
+        food_button.setToolTipText("Food");
+        food_button.setBorder(null);
+        food_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                food_buttonMouseClicked(evt);
+            }
+        });
+
+        transport_button.setBackground(new java.awt.Color(153, 204, 255));
+        transport_button.setText("TR");
+        transport_button.setToolTipText("Transport");
+        transport_button.setBorder(null);
+        transport_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                transport_buttonMouseClicked(evt);
+            }
+        });
+
+        room_button.setBackground(new java.awt.Color(153, 204, 255));
+        room_button.setText("RO");
+        room_button.setToolTipText("Room");
+        room_button.setBorder(null);
+        room_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                room_buttonMouseClicked(evt);
+            }
+        });
+
+        emergency_button.setBackground(new java.awt.Color(153, 204, 255));
+        emergency_button.setText("EM");
+        emergency_button.setToolTipText("Emergency");
+        emergency_button.setBorder(null);
+        emergency_button.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        emergency_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                emergency_buttonMouseClicked(evt);
+            }
+        });
+
+        acct_bal.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        acct_bal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        acct_bal.setText("acct_bal");
+
+        Account_Button.setBackground(new java.awt.Color(153, 204, 255));
+        Account_Button.setText("Account_Button");
+        Account_Button.setBorder(null);
         Account_Button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Account_ButtonMouseClicked(evt);
             }
         });
 
-        add_item.setBackground(new java.awt.Color(255, 255, 255));
-        add_item.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        add_item.setText("+");
-        add_item.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        remove_item.setBackground(new java.awt.Color(255, 255, 255));
-        remove_item.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        remove_item.setText("-");
-        remove_item.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        entertainment_label.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        entertainment_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        entertainment_label.setText("ENTERTAINMENT");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        food_label.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        food_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        food_label.setText("FOOD");
 
-            },
-            new String [] {
-                "Balance", "Description", "Type"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+        transport_label.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        transport_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        transport_label.setText("TRANSPORT");
 
-        jScrollPane1.setViewportView(jScrollPane2);
+        room_label.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        room_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        room_label.setText("ROOM");
+
+        emergency_label.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        emergency_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        emergency_label.setText("EMERGENCY");
+
+        emergency_val.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        emergency_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        emergency_val.setText("emergency_val");
+
+        room_val.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        room_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        room_val.setText("room_val");
+
+        transport_val.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        transport_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        transport_val.setText("transport_val");
+
+        food_val.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        food_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        food_val.setText("food_val");
+
+        entertainment_val.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        entertainment_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        entertainment_val.setText("entertainment_val");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(emergency_label, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(room_label, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(transport_label, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(food_label, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(entertainment_label, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(transport_val, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(food_val, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(entertainment_val, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(emergency_val, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(room_val, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(entertainment_label)
+                    .addComponent(entertainment_val))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(food_label)
+                    .addComponent(food_val))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(transport_label)
+                    .addComponent(transport_val))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(room_label)
+                    .addComponent(room_val))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emergency_label)
+                    .addComponent(emergency_val))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,28 +231,43 @@ public class NomismaMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(current_balance, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(balance_input, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(add_item, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(entertainment_button, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(food_button, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(remove_item, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
-                .addComponent(Account_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1)
+                .addComponent(transport_button, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(room_button, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(emergency_button, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(acct_bal, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Account_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(current_balance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(remove_item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(add_item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(Account_Button))
+                .addGap(6, 6, 6)
+                .addComponent(Account_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(acct_bal)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(balance_input)
+                        .addComponent(entertainment_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(food_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(transport_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(room_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(emergency_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -115,15 +275,27 @@ public class NomismaMenu extends javax.swing.JFrame {
 
     private void Account_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Account_ButtonMouseClicked
         // TODO add your handling code here:
-        int logout_choice = JOptionPane.showConfirmDialog(rootPane, "Are you sure you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
-        System.out.println(logout_choice);
-        if (logout_choice == 0) {
-            //call other program logout actions
-            //close session
-            this.setVisible(false);
-            this.dispose();
-        }
     }//GEN-LAST:event_Account_ButtonMouseClicked
+
+    private void entertainment_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_entertainment_buttonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_entertainment_buttonMouseClicked
+
+    private void food_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_food_buttonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_food_buttonMouseClicked
+
+    private void transport_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transport_buttonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_transport_buttonMouseClicked
+
+    private void room_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_room_buttonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_room_buttonMouseClicked
+
+    private void emergency_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emergency_buttonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emergency_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -163,11 +335,23 @@ public class NomismaMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Account_Button;
-    private javax.swing.JButton add_item;
-    private javax.swing.JLabel current_balance;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JButton remove_item;
+    private javax.swing.JLabel acct_bal;
+    private javax.swing.JTextField balance_input;
+    private javax.swing.JButton emergency_button;
+    private javax.swing.JLabel emergency_label;
+    private javax.swing.JLabel emergency_val;
+    private javax.swing.JButton entertainment_button;
+    private javax.swing.JLabel entertainment_label;
+    private javax.swing.JLabel entertainment_val;
+    private javax.swing.JButton food_button;
+    private javax.swing.JLabel food_label;
+    private javax.swing.JLabel food_val;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton room_button;
+    private javax.swing.JLabel room_label;
+    private javax.swing.JLabel room_val;
+    private javax.swing.JButton transport_button;
+    private javax.swing.JLabel transport_label;
+    private javax.swing.JLabel transport_val;
     // End of variables declaration//GEN-END:variables
 }
