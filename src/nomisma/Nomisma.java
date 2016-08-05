@@ -37,79 +37,82 @@ public class Nomisma {
         } else {
             NomismaMenu mainWindow = new NomismaMenu("username");
             
-            //user menu
-            //1) checkBalance(); check transaction balance
-            //2) logEntertainment(); log transaction entertainment
-            //3) logFood(); log transaction food
-            //4) logTransport(); log transcation transport
-            //5) logRoom(); log transaction room
-            //6) logEmergency(); log transcation emergency
-            //7) logout/exit
+            //IMPORTANT FOR GUI - the following methods return the current
+            //balance of each category as a double
+            //1) checkBalance(); 
+            //2) logEntertainment(0); 
+            //3) logFood(0); 
+            //4) logTransport(0); 
+            //5) logRoom(0); 
+            //6) logEmergency(0); 
             dao.readUserTransactions(uid);
         }
     }
         
-    private void checkBalance() {
+    private double checkBalance() {
+        double balance = 0;
         try {
-            dao.readUserTransactions(uid);
+            balance = dao.reduceBalance(0.00, uid);
+            return balance;
         } catch (Exception ex) {
             Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return balance;
     }
     
-    private void logEntertainment() {
+    private double logEntertainment(double cost) {
+        double balance = 0;
         try {
-            //cost = user input - cost
-            
-            //dao.reduceBalance(cost,uid);
-            //dao.incEntertainment(cost, uid);
+            balance = dao.incEntertainment(cost, uid);
+            return balance;
         } catch (Exception ex) {
             Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return balance;
     }
     
-    private void logFood() {
+    private double logFood(double cost) {
+        double balance = 0;
         try {
-            //cost = user input - cost
-            
-            //dao.reduceBalance(cost,uid);
-            //dao.incFood(cost, uid);
+            balance = dao.incFood(cost, uid);
+            return balance;
         } catch (Exception ex) {
             Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return balance;
     }
     
-    private void logTransport() {
+    private double logTransport(double cost) {
+        double balance = 0;
         try {
-            //cost = user input - cost
-            
-            //dao.reduceBalance(cost,uid);
-            //dao.incTransport(cost, uid);
+            balance = dao.incTransport(cost, uid);
+            return balance;
         } catch (Exception ex) {
             Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return balance;
     }
     
-    private void logRoom() {
+    private double logRoom(double cost) {
+        double balance = 0;
         try {
-            //cost = user input - cost
-            
-            //dao.reduceBalance(cost,uid);
-            //dao.incRoom(cost, uid);
+            balance = dao.incRoom(cost, uid);
+            return balance;
         } catch (Exception ex) {
             Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return balance;
     }
     
-    private void logEmergency() {
+    private double logEmergency(double cost) {
+        double balance = 0;
         try {
-            //cost = user input - cost
-            
-            //dao.reduceBalance(cost,uid);
-            //dao.incEmergency(cost, uid);
+            balance = dao.incEmergency(cost, uid);
+            return balance;
         } catch (Exception ex) {
             Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return balance;
     }
     
 }

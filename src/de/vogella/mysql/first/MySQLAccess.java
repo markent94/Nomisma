@@ -131,9 +131,10 @@ public class MySQLAccess {
    * 
    * @param userid ID of the user to be read
    * @param cost Amount of money to reduce balance by
+   * @return double current balance
    * @throws Exception
    */
-  public void reduceBalance(double cost, int userid) throws Exception {
+  public double reduceBalance(double cost, int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
@@ -157,11 +158,12 @@ public class MySQLAccess {
           .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
+      double balance = 0;
       while (resultSet.next()) {
-        double balance = resultSet.getDouble("balance");
+        balance = resultSet.getDouble("balance");
         System.out.println("New balance: " + balance);  
       }
-      
+      return balance;
     } catch (Exception e) {
       throw e;
     } finally {
@@ -177,9 +179,10 @@ public class MySQLAccess {
    * 
    * @param userid ID of the user to be read
    * @param cost Amount of money to add to entertainment expenses
+   * @return double entertainment balance
    * @throws Exception
    */
-  public void incEntertainment(double cost, int userid) throws Exception {
+  public double incEntertainment(double cost, int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
@@ -203,10 +206,12 @@ public class MySQLAccess {
           .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
+      double expense = 0;
       while (resultSet.next()) {
-        double expense = resultSet.getDouble("entertainment");
+        expense = resultSet.getDouble("entertainment");
         System.out.println("New entertainment expenses: " + expense);  
       }
+      return expense;
       
     } catch (Exception e) {
       throw e;
@@ -223,9 +228,10 @@ public class MySQLAccess {
    * 
    * @param userid ID of the user to be read
    * @param cost Amount of money to add to food expenses
+   * @return food balance
    * @throws Exception
    */
-  public void incFood(double cost, int userid) throws Exception {
+  public double incFood(double cost, int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
@@ -249,10 +255,12 @@ public class MySQLAccess {
           .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
+      double expense = 0;
       while (resultSet.next()) {
-        double expense = resultSet.getDouble("food");
+        expense = resultSet.getDouble("food");
         System.out.println("New food expenses: " + expense);  
       }
+      return expense;
       
     } catch (Exception e) {
       throw e;
@@ -269,9 +277,10 @@ public class MySQLAccess {
    * 
    * @param userid ID of the user to be read
    * @param cost Amount of money to add to transport expenses
+   * @return transport expense
    * @throws Exception
    */
-  public void incTransport(double cost, int userid) throws Exception {
+  public double incTransport(double cost, int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
@@ -295,10 +304,12 @@ public class MySQLAccess {
           .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
+      double expense = 0;
       while (resultSet.next()) {
-        double expense = resultSet.getDouble("transport");
+        expense = resultSet.getDouble("transport");
         System.out.println("New transport expenses: " + expense);  
       }
+      return expense;
       
     } catch (Exception e) {
       throw e;
@@ -315,9 +326,10 @@ public class MySQLAccess {
    * 
    * @param userid ID of the user to be read
    * @param cost Amount of money to add to room expenses
+   * @return room expense
    * @throws Exception
    */
-  public void incRoom(double cost, int userid) throws Exception {
+  public double incRoom(double cost, int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
@@ -341,10 +353,12 @@ public class MySQLAccess {
           .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
+      double expense = 0;
       while (resultSet.next()) {
-        double expense = resultSet.getDouble("room");
+        expense = resultSet.getDouble("room");
         System.out.println("New room expenses: " + expense);  
       }
+      return expense;
       
     } catch (Exception e) {
       throw e;
@@ -361,9 +375,10 @@ public class MySQLAccess {
    * 
    * @param userid ID of the user to be read
    * @param cost Amount of money to add to emergency expenses
+   * @return emergency expense
    * @throws Exception
    */
-  public void incEmergency(double cost, int userid) throws Exception {
+  public double incEmergency(double cost, int userid) throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
       Class.forName("com.mysql.jdbc.Driver");
@@ -387,10 +402,12 @@ public class MySQLAccess {
           .prepareStatement("SELECT * from nomisma.transactions WHERE id = ?");
       preparedStatement.setInt(1, userid);
       resultSet = preparedStatement.executeQuery();
+      double expense = 0;
       while (resultSet.next()) {
-        double expense = resultSet.getDouble("emergency");
+        expense = resultSet.getDouble("emergency");
         System.out.println("New emergency expenses: " + expense);  
       }
+      return expense;
       
     } catch (Exception e) {
       throw e;
