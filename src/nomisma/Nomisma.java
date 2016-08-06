@@ -6,8 +6,7 @@
 package nomisma;
 
 import de.vogella.mysql.first.MySQLAccess;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 /**
  *
  * @author marke_000
@@ -18,6 +17,9 @@ public class Nomisma {
     private static int uid;
     /**
      * @param args the command line arguments
+     * 
+     * Calls first the login GUI which is connected to the user DB and 
+     * then calls the transaction GUI which is connected to the transaction DB 
      */
     public static void main(String[] args) throws Exception{
         
@@ -35,7 +37,9 @@ public class Nomisma {
         if (uid == 0) {
             System.out.println("Username/Password combination is incorrect");
         } else {
-            NomismaMenu mainWindow = new NomismaMenu("username");
+            NomismaMenu mainWindow = new NomismaMenu(username, dao, uid);
+            mainWindow.setVisible(true);
+            
             
             //IMPORTANT FOR GUI - the following methods return the current
             //balance of each category as a double
@@ -49,70 +53,5 @@ public class Nomisma {
         }
     }
         
-    private double checkBalance() {
-        double balance = 0;
-        try {
-            balance = dao.reduceBalance(0.00, uid);
-            return balance;
-        } catch (Exception ex) {
-            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return balance;
-    }
-    
-    private double logEntertainment(double cost) {
-        double balance = 0;
-        try {
-            balance = dao.incEntertainment(cost, uid);
-            return balance;
-        } catch (Exception ex) {
-            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return balance;
-    }
-    
-    private double logFood(double cost) {
-        double balance = 0;
-        try {
-            balance = dao.incFood(cost, uid);
-            return balance;
-        } catch (Exception ex) {
-            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return balance;
-    }
-    
-    private double logTransport(double cost) {
-        double balance = 0;
-        try {
-            balance = dao.incTransport(cost, uid);
-            return balance;
-        } catch (Exception ex) {
-            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return balance;
-    }
-    
-    private double logRoom(double cost) {
-        double balance = 0;
-        try {
-            balance = dao.incRoom(cost, uid);
-            return balance;
-        } catch (Exception ex) {
-            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return balance;
-    }
-    
-    private double logEmergency(double cost) {
-        double balance = 0;
-        try {
-            balance = dao.incEmergency(cost, uid);
-            return balance;
-        } catch (Exception ex) {
-            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return balance;
-    }
     
 }

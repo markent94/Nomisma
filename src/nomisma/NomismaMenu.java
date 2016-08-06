@@ -5,11 +5,15 @@
  */
 package nomisma;
 
+import de.vogella.mysql.first.MySQLAccess;
 import java.awt.event.WindowEvent;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+
 
 /**
  *
@@ -18,13 +22,28 @@ import javax.swing.ListModel;
 public class NomismaMenu extends javax.swing.JFrame {
 
     String username = "";
+    private MySQLAccess dao;
+    private int uid;
     
     /**
      * Creates new form NomismaWindow
+     * 
+     * @param login - User's username
+     * @param dao - used for connecting the program to the back-end database
+     * @param uid - user's id used for database queries
      */
-    public NomismaMenu(String login) {
+    public NomismaMenu(String login, MySQLAccess dao, int uid) {
         initComponents();
         this.username = login;
+        this.dao = dao;
+        this.uid = uid;
+        
+        this.acct_bal.setText("Balance $" + Double.toString(checkBalance(0)));
+        this.entertainment_val.setText("$" + Double.toString(logEntertainment(0)));
+        this.food_val.setText("$" + Double.toString(logFood(0)));
+        this.transport_val.setText("$" + Double.toString(logTransport(0)));
+        this.room_val.setText("$" + Double.toString(logRoom(0)));
+        this.emergency_val.setText("$" + Double.toString(logEmergency(0)));
         this.Account_Button.setText(this.username);
         
         //BigDecimal x = new BigDecimal((double) 1000.2);
@@ -78,9 +97,19 @@ public class NomismaMenu extends javax.swing.JFrame {
                 entertainment_buttonMouseClicked(evt);
             }
         });
+        entertainment_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                entertainment_buttonActionPerformed(evt);
+            }
+        });
 
         balance_input.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         balance_input.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        balance_input.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                balance_inputActionPerformed(evt);
+            }
+        });
 
         food_button.setBackground(new java.awt.Color(153, 204, 255));
         food_button.setText("FO");
@@ -274,28 +303,41 @@ public class NomismaMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Account_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Account_ButtonMouseClicked
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_Account_ButtonMouseClicked
 
     private void entertainment_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_entertainment_buttonMouseClicked
-        // TODO add your handling code here:
+        this.entertainment_val.setText("$" + Double.toString(logEntertainment(Double.parseDouble(balance_input.getText()))));
+        this.acct_bal.setText("Balance $" + Double.toString(checkBalance(Double.parseDouble(balance_input.getText()))));
     }//GEN-LAST:event_entertainment_buttonMouseClicked
 
     private void food_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_food_buttonMouseClicked
-        // TODO add your handling code here:
+        this.food_val.setText("$" + Double.toString(logFood(Double.parseDouble(balance_input.getText()))));
+        this.acct_bal.setText("Balance $" + Double.toString(checkBalance(Double.parseDouble(balance_input.getText()))));
     }//GEN-LAST:event_food_buttonMouseClicked
 
     private void transport_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transport_buttonMouseClicked
-        // TODO add your handling code here:
+        this.transport_val.setText("$" + Double.toString(logTransport(Double.parseDouble(balance_input.getText()))));
+        this.acct_bal.setText("Balance $" + Double.toString(checkBalance(Double.parseDouble(balance_input.getText()))));
     }//GEN-LAST:event_transport_buttonMouseClicked
 
     private void room_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_room_buttonMouseClicked
-        // TODO add your handling code here:
+        this.room_val.setText("$" + Double.toString(logRoom(Double.parseDouble(balance_input.getText()))));
+        this.acct_bal.setText("Balance $" + Double.toString(checkBalance(Double.parseDouble(balance_input.getText()))));
     }//GEN-LAST:event_room_buttonMouseClicked
 
     private void emergency_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emergency_buttonMouseClicked
-        // TODO add your handling code here:
+        this.emergency_val.setText("$" + Double.toString(logEmergency(Double.parseDouble(balance_input.getText()))));
+        this.acct_bal.setText("Balance $" + Double.toString(checkBalance(Double.parseDouble(balance_input.getText()))));
     }//GEN-LAST:event_emergency_buttonMouseClicked
+
+    private void entertainment_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entertainment_buttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_entertainment_buttonActionPerformed
+
+    private void balance_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_balance_inputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_balance_inputActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,15 +366,111 @@ public class NomismaMenu extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NomismaMenu("File").setVisible(true);
-            }
-        });
+        
     }
-
+    
+    /**
+     * Changes values of the database and displays onto GUI
+     * 
+     * @param cost amount to change balance by
+     * @return The value of the new balance
+     */
+    private double checkBalance(double cost) {
+        double balance = 0;
+        try {
+            balance = dao.reduceBalance(cost, uid);
+            return balance;
+        } catch (Exception ex) {
+            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return balance;
+    }
+    
+    /**
+     * Changes values of the database and displays onto GUI
+     * 
+     * @param cost amount to change balance by
+     * @return The value of the new balance
+     */
+    private double logEntertainment(double cost) {
+        double balance = 0;
+        try {
+            balance = dao.incEntertainment(cost, uid);
+            return balance;
+        } catch (Exception ex) {
+            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return balance;
+    }
+    
+    /**
+     * Changes values of the database and displays onto GUI
+     * 
+     * @param cost amount to change balance by
+     * @return The value of the new balance
+     */
+    private double logFood(double cost) {
+        double balance = 0;
+        try {
+            balance = dao.incFood(cost, uid);
+            return balance;
+        } catch (Exception ex) {
+            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return balance;
+    }
+    
+    /**
+     * Changes values of the database and displays onto GUI
+     * 
+     * @param cost amount to change balance by
+     * @return The value of the new balance
+     */
+    private double logTransport(double cost) {
+        double balance = 0;
+        try {
+            balance = dao.incTransport(cost, uid);
+            return balance;
+        } catch (Exception ex) {
+            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return balance;
+    }
+    
+    /**
+     * Changes values of the database and displays onto GUI
+     * 
+     * @param cost amount to change balance by
+     * @return The value of the new balance
+     */
+    private double logRoom(double cost) {
+        double balance = 0;
+        try {
+            balance = dao.incRoom(cost, uid);
+            return balance;
+        } catch (Exception ex) {
+            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return balance;
+    }
+    
+    /**
+     * Changes values of the database and displays onto GUI
+     * 
+     * @param cost amount to change balance by
+     * @return The value of the new balance
+     */
+    private double logEmergency(double cost) {
+        double balance = 0;
+        try {
+            balance = dao.incEmergency(cost, uid);
+            return balance;
+        } catch (Exception ex) {
+            Logger.getLogger(Nomisma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return balance;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Account_Button;
     private javax.swing.JLabel acct_bal;
