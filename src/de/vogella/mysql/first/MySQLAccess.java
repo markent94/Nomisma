@@ -19,7 +19,7 @@ public class MySQLAccess {
   private ResultSet resultSet = null;
   
   
-  private final String nomismaDB = "jdbc:mysql://localhost/nomisma?user=sqluser&password=sqluserpw";
+  private final String nomismaDB = "jdbc:mysql://66.27.203.133:53207/nomisma?user=testnomisma&password=3ghf8wsh36";
 
   /**
    * authUser
