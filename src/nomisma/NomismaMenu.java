@@ -5,7 +5,7 @@
  */
 package nomisma;
 
-import de.vogella.mysql.first.MySQLAccess;
+import nomisma.mysql.first.MySQLAccess;
 import java.awt.event.WindowEvent;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
