@@ -5,6 +5,7 @@
  */
 package nomisma;
 
+import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -23,10 +24,14 @@ public class NomismaLogin extends javax.swing.JDialog {
     public NomismaLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.rootPane.setDefaultButton(login_button);
     }
 
     public NomismaLogin() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.rootPane.setDefaultButton(login_button);
     }
     
     public String fetchUsername() {
@@ -59,6 +64,11 @@ public class NomismaLogin extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Cambria", 1, 48)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -80,6 +90,11 @@ public class NomismaLogin extends javax.swing.JDialog {
                 login_usernameFocusLost(evt);
             }
         });
+        login_username.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                login_usernameKeyPressed(evt);
+            }
+        });
 
         login_password.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         login_password.setForeground(new java.awt.Color(153, 153, 153));
@@ -90,6 +105,11 @@ public class NomismaLogin extends javax.swing.JDialog {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 login_passwordFocusLost(evt);
+            }
+        });
+        login_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                login_passwordKeyPressed(evt);
             }
         });
 
@@ -139,12 +159,12 @@ public class NomismaLogin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel3KeyPressed
-        //if enter key is pressed, press login key
-        //if (evt.equals()) {
-            //
-            //}
+        
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+            loginAttempt();
+        }
     }//GEN-LAST:event_jLabel3KeyPressed
-
+    
     private void login_usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_login_usernameFocusGained
         if (login_username.getText().equals("Username")) {
             login_username.setText("");
@@ -174,6 +194,10 @@ public class NomismaLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_login_passwordFocusLost
 
     private void login_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_buttonMouseClicked
+        loginAttempt();
+    }//GEN-LAST:event_login_buttonMouseClicked
+
+    private void loginAttempt() {
         if (login_username.getText().equals("") || login_password.getText().equals("") || login_username.getText().toLowerCase().equals("username") || login_password.getText().toLowerCase().equals("password")) {
             //System.out.println("DEBUG: Invalid username/password!");
             Object[] option = {"OK"};
@@ -185,7 +209,25 @@ public class NomismaLogin extends javax.swing.JDialog {
             this.setVisible(false);
             this.dispose();
         }
-    }//GEN-LAST:event_login_buttonMouseClicked
+    }
+    
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+            loginAttempt();
+        }
+    }//GEN-LAST:event_formKeyPressed
+
+    private void login_usernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_login_usernameKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+            loginAttempt();
+        }
+    }//GEN-LAST:event_login_usernameKeyPressed
+
+    private void login_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_login_passwordKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+            loginAttempt();
+        }
+    }//GEN-LAST:event_login_passwordKeyPressed
 
     /**
      * @param args the command line arguments

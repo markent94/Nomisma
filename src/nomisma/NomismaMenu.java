@@ -6,14 +6,9 @@
 package nomisma;
 
 import nomisma.mysql.first.MySQLAccess;
-import java.awt.event.WindowEvent;
-import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
-
 
 /**
  *
@@ -34,6 +29,9 @@ public class NomismaMenu extends javax.swing.JFrame {
      */
     public NomismaMenu(String login, MySQLAccess dao, int uid) {
         initComponents();
+        
+        this.setLocationRelativeTo(null);
+        
         this.username = login;
         this.dao = dao;
         this.uid = uid;
@@ -44,15 +42,9 @@ public class NomismaMenu extends javax.swing.JFrame {
         this.transport_val.setText("$" + Double.toString(logTransport(0)));
         this.room_val.setText("$" + Double.toString(logRoom(0)));
         this.emergency_val.setText("$" + Double.toString(logEmergency(0)));
-        this.Account_Button.setText(this.username);
+        this.Account_Button.setText("Logout of " + this.username);
         
-        //BigDecimal x = new BigDecimal((double) 1000.2);
-        //this.acct_bal.setText(NumberFormat.getCurrencyInstance().format(x));
     }
-    
-    //public NomismaMenu(String login, ) {
-    //    
-    //}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -303,7 +295,11 @@ public class NomismaMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Account_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Account_ButtonMouseClicked
-        
+        int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Log Out", JOptionPane.YES_OPTION);
+        if (choice == 0) {
+            this.setVisible(false);
+            this.dispose();
+        }
     }//GEN-LAST:event_Account_ButtonMouseClicked
 
     private void entertainment_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_entertainment_buttonMouseClicked
